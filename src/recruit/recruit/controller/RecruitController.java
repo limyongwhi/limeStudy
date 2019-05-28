@@ -1,5 +1,15 @@
 package recruit.recruit.controller;
-/*모집게시판 컨트롤러*/
-public class RecruitController {
 
+import recruit.recruit.service.RecruitService;
+
+/*모집게시판 컨트롤러*/
+@Controller
+public class RecruitController {
+	@Autowired
+	RecruitService recService;
+	
+	@RequestMapping(value={"recruitMain.do"})
+	public ModelAndView recruitMain(@HashMap<String,Object>params){
+		
+	}
 }

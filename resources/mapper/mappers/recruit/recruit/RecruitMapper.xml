@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="recruit.dao.RecruitMapper">
+<!-- 	@설명          모집게시판 Mapper 	   -->
+<!-- 	@초기작성자 임용휘 				   -->
+<!-- ================================  -->
+<!-- 	작성일		 	 내용	 	작성자    -->
+<!-- 	2019.05.28         초기작성   	임용휘    -->
+<!-- ================================  -->
+
+	<!-- 모집게시판 게시물 리스트 -->
+	<select id="getRecruitList" resultType ="HashMap" parameterType="HashMap">
+	/*RecruitMapper.getRecruitList*/
+		SELECT * FROM RECRUIT
+		WHERE 1 = 1
+		AND REC_DELETE_DATE IS NOT NULL
+		<!-- 검색조건 -->
+	</select>
+
+	<!-- 모집게시판 게시물 조회-->
+	<select id="getRecruit" resultType ="HashMap" parameterType="HashMap">
+		/*RecruitMapper.getRecruit*/
+		SELECT * FROM RECRUIT
+		WHERE REC_NO = #{REC_NO}
+	</select>
+
+	<!-- 모집게시판 게시물 작성-->
+	<select id="writeRecruit" parameterType="HashMap">
+	/*RecruitMapper.writeRecruit*/
+		INSERT INTO RECRUIT
+		(
+<!-- 			REC_NO -->
+			REC_TITLE,
+			REC_CONTENT,
+			REC_FILE,
+			M_ID,
+			REC_DESTINATION,
+			REC_MEMBER_COUNT,
+			REC_STATE,
+			REC_START,
+			REC_END,
+			REC_GENDER,
+<!-- 		REC_VIEWS 자동생성 -->
+<!-- 		REC_CREATE_DATE 자동생성 -->
+<!-- 		REC_UPDATE_DATE 비어도됨-->
+<!-- 		REC_DELETE_DATE 비어도됨-->
+		)VALUES(
+			#{REC_TITLE},
+			#{REC_CONTENT},
+			#{REC_FILE},
+			#{M_ID},
+			#{REC_DESTINATION},
+			#{REC_MEMBER_COUNT},
+			#{REC_STATE},
+			#{REC_START},
+			#{REC_END},
+			#{REC_GENDER},
+		)
+	</select>
+
+	<!-- 모집게시판 게시물 수정, 삭제-->
+	<select id="updateRecruit" parameterType="HashMap">
+	/*RecruitMapper.updateRecruit*/
+		UPDATE RECRUIT SET
+		(
+			REC_FILE = #{REC_FILE},
+			M_ID = #{M_ID},
+			REC_DESTINATION = #{REC_DESTINATION},
+			REC_MEMBER_COUNT = #{REC_MEMBER_COUNT},
+			REC_STATE = #{REC_STATE},
+			REC_START = #{REC_START},
+			REC_END = #{REC_END},
+			REC_GENDER = #{REC_GENDER},
+			REC_UPDATE_DATE = NOW()
+		)
+		WHERE REC_NO = #{REC_NO}
+	</select>
+	
+	<!-- 모집게시판 게시물 삭제 -->
+	<update id="deleteRecruit" parameterType="HashMap">
+		UPDATE RECRUIT SET
+		(
+ 			REC_DELETE_DATE = NOW()
+		)
+		WHERE REC_NO = #{REC_NO}
+	</update>
+	
+	<!-- 모집게시판 게시물 조회수 증가 -->
+	<update id="addViewCnt" parameterType="HashMap">
+	/*RecruitMapper.addViewCnt*/
+		UPDATE RECRUIT SET
+		REC_VIEWS = REC_VIEWS + 1
+		WHERE REC_NO = #{REC_NO} 
+	</update>
+
+</mapper>
