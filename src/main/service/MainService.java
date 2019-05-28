@@ -1,5 +1,5 @@
 package main.service;
 
-public class MainService {
-	
+public interface MainService {
+
 }

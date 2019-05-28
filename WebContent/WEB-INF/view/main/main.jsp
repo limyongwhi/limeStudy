@@ -8,7 +8,7 @@
 		 console.log(e)
 	 })
  }
- 
+
  </script>
     <button onclick="test()">테스트</button>
     main
